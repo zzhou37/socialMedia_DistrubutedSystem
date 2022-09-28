@@ -1,0 +1,33 @@
+user-authorization API:
+
+**** Register a user ***
+URL: /user/register-user POST
+Not Included in feign-client
+Request body example:
+{
+    "userName": "zhou",
+    "passWord": "123",
+    "email": "lai@gmail.com"
+}
+return:
+{
+    "userName": "zhou",
+    "email": "zhou@gmail.com",
+    "statue": "alreadyExist" OR "success"
+}
+
+**** User authorization ***
+URL: /user/check-authorization POST
+Included in feign-client
+Request body example:
+{
+    "userName": "zhou",
+    "passWord": "123",
+    "email": "zhou@gmail.com"
+}
+return:
+{
+    "userName": "zhou",
+    "email": "zhou@gmail.com",
+    "statue": "accept" OR "reject" OR "found more than one user"
+}
