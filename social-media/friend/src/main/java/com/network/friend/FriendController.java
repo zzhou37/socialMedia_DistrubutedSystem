@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/friend")
 @AllArgsConstructor
 public class FriendController {
 
     FriendService friendService;
 
-    @PostMapping("/get-friends")
+    @PostMapping("/friend/get-friends")
     public FriendList getFriends(@RequestBody UserInfo userInfo){
         log.info("get friends of user");
         return friendService.getFriends(userInfo);
     }
 
-    @PostMapping("/is-friend")
+    @PostMapping("/friend/is-friend")
     public FriendStatue isFriend(@RequestBody UserPair userPair){
         log.info("check is user1 and user2 are friends");
         return friendService.isFriend(userPair);

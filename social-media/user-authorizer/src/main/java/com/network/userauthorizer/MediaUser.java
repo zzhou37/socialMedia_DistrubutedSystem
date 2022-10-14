@@ -24,8 +24,8 @@ public class MediaUser {
             generator = "user_id_sequence"
     )
     private Integer id;
-    private String userName;
-    private String passWord;
+    private String username;
+    private String password;
     private String email;
 }
 

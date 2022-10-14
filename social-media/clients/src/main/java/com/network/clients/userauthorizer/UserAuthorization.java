@@ -1,7 +1,7 @@
 package com.network.clients.userauthorizer;
 
 public record UserAuthorization(
-        String userName,
+        String username,
         String email,
         String statue
 ) {

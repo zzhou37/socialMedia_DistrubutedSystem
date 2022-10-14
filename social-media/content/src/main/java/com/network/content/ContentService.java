@@ -16,7 +16,7 @@ public class ContentService {
     UserAuthorizerClient userAuthorizerClient;
     FriendClient friendServiceClient;
     public String getConversation(UserPair userPair){
-        UserInfo userInfo = new UserInfo(userPair.userName(), userPair.password(),userPair.email());
+        UserInfo userInfo = new UserInfo(userPair.username(), userPair.password(),userPair.email());
         UserAuthorization isUserAuthorized = userAuthorizerClient.checkUser(userInfo);
         FriendStatue friendStatue = friendServiceClient.isFriend(userPair);
         if(true){

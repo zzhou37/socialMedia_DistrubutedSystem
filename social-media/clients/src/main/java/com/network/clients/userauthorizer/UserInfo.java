@@ -2,8 +2,8 @@ package com.network.clients.userauthorizer;
 
 
 public record UserInfo(
-        String userName,
-        String passWord,
+        String username,
+        String password,
         String email
 ) {
 

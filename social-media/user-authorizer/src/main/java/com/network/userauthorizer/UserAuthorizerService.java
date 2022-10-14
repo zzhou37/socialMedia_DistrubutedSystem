@@ -13,34 +13,34 @@ public class UserAuthorizerService {
 
     private final UserRepository userRepository;
     public UserAuthorization checkUserInfo(UserInfo userInfo){
-        String inputPassword = userInfo.passWord();
-        List<MediaUser> realUser = userRepository.findByUserName(userInfo.userName());
+        String inputPassword = userInfo.password();
+        List<MediaUser> realUser = userRepository.findByUsername(userInfo.username());
         // if more than one user been found
         if(realUser.size() > 1) {
-            return new UserAuthorization(userInfo.userName(), userInfo.email(), "moreThenOneUserFound");
+            return new UserAuthorization(userInfo.username(), userInfo.email(), "moreThenOneUserFound");
         }
-        String realPassword = realUser.get(0).getPassWord();
+        String realPassword = realUser.get(0).getPassword();
         //compare password
         if(inputPassword.compareTo(realPassword) == 0){
-            return new UserAuthorization(userInfo.userName(), userInfo.email(), "accept");
+            return new UserAuthorization(userInfo.username(), userInfo.email(), "accept");
         }
         else{
-            return new UserAuthorization(userInfo.userName(), userInfo.email(), "reject");
+            return new UserAuthorization(userInfo.username(), userInfo.email(), "reject");
         }
     }
 
     public UserAuthorization registerUser(UserInfo userInfo){
         // check if the user already exist
-        if(userRepository.findByUserName(userInfo.userName()).size() > 0){
-            return new UserAuthorization(userInfo.userName(), userInfo.email(), "alreadyExist");
+        if(userRepository.findByUsername(userInfo.username()).size() > 0){
+            return new UserAuthorization(userInfo.username(), userInfo.email(), "alreadyExist");
         }
         MediaUser newUser = MediaUser.builder()
-                .userName(userInfo.userName())
-                .passWord(userInfo.passWord())
+                .username(userInfo.username())
+                .password(userInfo.password())
                 .email(userInfo.email())
                 .build();
         userRepository.saveAndFlush(newUser);
-        return new UserAuthorization(userInfo.userName(), userInfo.email(), "success");
+        return new UserAuthorization(userInfo.username(), userInfo.email(), "success");
     }
 }
 

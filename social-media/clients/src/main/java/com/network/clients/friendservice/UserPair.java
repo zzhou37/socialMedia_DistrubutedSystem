@@ -1,10 +1,10 @@
 package com.network.clients.friendservice;
 
 public record UserPair(
-        String userName,
+        String username,
         String password,
         String email,
-        String userName1
+        String username1
 
 ) {
 }

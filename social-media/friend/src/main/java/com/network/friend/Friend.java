@@ -19,7 +19,7 @@ public class Friend {
     private String id;
 
     @Indexed(unique = true)
-    private String userName;
+    private String username;
 
     private String email;
     private List<String> friendList;

@@ -4,14 +4,15 @@ import com.network.clients.userauthorizer.UserInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @FeignClient(value = "friend-service")
 public interface FriendClient {
-    @PostMapping("/is-friend")
+    @PostMapping("/friend/is-friend")
     FriendStatue isFriend(@RequestBody UserPair userPair);
 
-    @PostMapping("/get-friends")
+    @PostMapping("/friend/get-friends")
     FriendList getFriends(@RequestBody UserInfo userInfo);
-    @PostMapping("/add-friend")
+    @PostMapping("/friend/add-friend")
     FriendStatue addFriend(@RequestBody UserPair userPair);
 }

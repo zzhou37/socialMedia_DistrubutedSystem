@@ -3,9 +3,10 @@ package com.network.clients.userauthorizer;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @FeignClient(value = "user-authorizer")
 public interface UserAuthorizerClient {
-    @PostMapping("/user/check-authorization")
+    @PostMapping("/user-authorizer/check-authorization")
     UserAuthorization checkUser(@RequestBody UserInfo userInfo);
 }
