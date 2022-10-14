@@ -2,4 +2,13 @@ server:
   port: 8080
 spring:
   application:
-    name: friend
+    name: friend-service
+  data:
+    mongodb:
+      authentication-database: admin
+      username: rootuser
+      password: rootpass
+      database: friend
+      port: 27017
+      host: localhost
+      auto-index-creation: true

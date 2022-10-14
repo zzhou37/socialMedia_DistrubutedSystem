@@ -12,4 +12,6 @@ public interface FriendClient {
 
     @PostMapping("/get-friends")
     FriendList getFriends(@RequestBody UserInfo userInfo);
+    @PostMapping("/add-friend")
+    FriendStatue addFriend(@RequestBody UserPair userPair);
 }

@@ -1,8 +1,11 @@
 package com.network.clients.friendservice;
 
+import java.util.List;
+
 public record FriendList(
         String userName,
         String email,
-        String friendListStr
+        List<String> friendList,
+        List<String> friendWaitList
 ) {
 }
