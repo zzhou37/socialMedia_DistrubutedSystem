@@ -1,7 +1,9 @@
 package com.network.userauthorizer;
 
-import com.network.clients.userauthorizer.UserAuthorization;
 import com.network.clients.userauthorizer.UserInfo;
+import com.network.clients.friendservice.CreateStatue;
+import com.network.clients.friendservice.FriendClient;
+import com.network.clients.userauthorizer.UserAuthorization;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +14,13 @@ import java.util.List;
 public class UserAuthorizerService {
 
     private final UserRepository userRepository;
+    private final FriendClient friendClient;
     public UserAuthorization checkUserInfo(UserInfo userInfo){
         String inputPassword = userInfo.password();
         List<MediaUser> realUser = userRepository.findByUsername(userInfo.username());
         // if more than one user been found
-        if(realUser.size() > 1) {
-            return new UserAuthorization(userInfo.username(), userInfo.email(), "moreThenOneUserFound");
+        if(realUser.size() != 1) {
+            return new UserAuthorization(userInfo.username(), userInfo.email(), "reject");
         }
         String realPassword = realUser.get(0).getPassword();
         //compare password
@@ -39,8 +42,14 @@ public class UserAuthorizerService {
                 .password(userInfo.password())
                 .email(userInfo.email())
                 .build();
-        userRepository.saveAndFlush(newUser);
-        return new UserAuthorization(userInfo.username(), userInfo.email(), "success");
+        CreateStatue statue = friendClient.createUserFriendProfile(userInfo);
+        if (statue.statue().compareTo("success") != 0){
+            userRepository.saveAndFlush(newUser);
+            return new UserAuthorization(userInfo.username(), userInfo.email(), "success");
+        }
+        else{
+            return new UserAuthorization(userInfo.username(), userInfo.email(), "failed");
+        }
     }
 }
 

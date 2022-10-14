@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="friend" />
+        <module name="apigw" />
         <module name="clients" />
         <module name="user-authorizer" />
         <module name="eureka-server" />

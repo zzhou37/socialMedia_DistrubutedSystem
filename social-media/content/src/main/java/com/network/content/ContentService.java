@@ -9,12 +9,14 @@ import com.network.clients.userauthorizer.UserInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.swing.*;
+
 @Service
 @AllArgsConstructor
 public class ContentService {
 
-    UserAuthorizerClient userAuthorizerClient;
-    FriendClient friendServiceClient;
+    private final UserAuthorizerClient userAuthorizerClient;
+    private final FriendClient friendServiceClient;
     public String getConversation(UserPair userPair){
         UserInfo userInfo = new UserInfo(userPair.username(), userPair.password(),userPair.email());
         UserAuthorization isUserAuthorized = userAuthorizerClient.checkUser(userInfo);

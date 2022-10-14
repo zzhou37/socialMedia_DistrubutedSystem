@@ -1,7 +1,7 @@
 package com.network.userauthorizer;
 
-import com.network.clients.userauthorizer.UserAuthorization;
 import com.network.clients.userauthorizer.UserInfo;
+import com.network.clients.userauthorizer.UserAuthorization;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

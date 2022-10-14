@@ -1,0 +1,17 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: user-authorizer
+          uri: lb://USER-AUTHORIZER
+          predicates:
+            - Path=/user-authorizer/**
+
+        - id: friend
+          uri: lb://FRIEND
+          predicates:
+            - Path=/friend/**

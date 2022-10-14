@@ -1,14 +1,11 @@
 package com.network.friend;
 
-import com.network.clients.friendservice.FriendList;
-import com.network.clients.friendservice.FriendStatue;
-import com.network.clients.friendservice.UserPair;
+import com.network.clients.friendservice.*;
 import com.network.clients.userauthorizer.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -28,6 +25,18 @@ public class FriendController {
     public FriendStatue isFriend(@RequestBody UserPair userPair){
         log.info("check is user1 and user2 are friends");
         return friendService.isFriend(userPair);
+    }
+
+    @PostMapping("/friend/request-friend")
+    public FriendStatue requestFriend(@RequestBody UserPair userPair){
+        log.info("user request user1 as friend");
+        return friendService.requestFriend(userPair);
+    }
+
+    @PostMapping("/friend/initalize")
+    public CreateStatue createUserFriendProfile(@RequestBody UserInfo userInfo){
+        log.info("creat a blank user profile for user");
+        return friendService.createUserFriendProfile(userInfo);
     }
 }
 
