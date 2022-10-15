@@ -43,7 +43,7 @@ public class UserAuthorizerService {
                 .email(userInfo.email())
                 .build();
         CreateStatue statue = friendClient.createUserFriendProfile(userInfo);
-        if (statue.statue().compareTo("success") != 0){
+        if (statue.statue().compareTo("success") == 0){
             userRepository.saveAndFlush(newUser);
             return new UserAuthorization(userInfo.username(), userInfo.email(), "success");
         }

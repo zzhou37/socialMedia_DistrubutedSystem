@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(value = "friend-service")
+@FeignClient(value = "friend")
 public interface FriendClient {
     @PostMapping("/friend/is-friend")
     FriendStatue isFriend(@RequestBody UserPair userPair);
@@ -22,4 +22,5 @@ public interface FriendClient {
 
     @PostMapping("/friend/create-user-friendProfile")
     CreateStatue createUserFriendProfile(@RequestBody UserInfo userInfo);
+
 }

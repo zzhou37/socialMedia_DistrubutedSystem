@@ -33,10 +33,16 @@ public class FriendController {
         return friendService.requestFriend(userPair);
     }
 
-    @PostMapping("/friend/initalize")
+    @PostMapping("/friend/create-user-friendProfile")
     public CreateStatue createUserFriendProfile(@RequestBody UserInfo userInfo){
         log.info("creat a blank user profile for user");
         return friendService.createUserFriendProfile(userInfo);
+    }
+
+    @PostMapping("/friend/add-friend")
+    public  FriendStatue addFriend(@RequestBody UserPair userPair){
+        log.info("user add user1 as friend");
+        return friendService.addFriend(userPair);
     }
 }
 
