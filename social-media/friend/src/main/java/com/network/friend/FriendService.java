@@ -83,7 +83,6 @@ public class FriendService {
             else{
                 return respondFriendStatue(userPair, "notFriend");
             }
-
         }
         else{
             return respondFriendStatue(userPair, "notAuthorized");
@@ -123,13 +122,27 @@ public class FriendService {
         //check if user is authorized
         UserInfo userInfo = new UserInfo(userPair.username(), userPair.password(), userPair.email());
         UserAuthorization authorization = userAuthorizerClient.checkUser(userInfo);
+        if(userPair.username().equals(userPair.username1())){
+            return respondFriendStatue(userPair, "notAvailable");
+        }
         if(authorization.statue().compareTo("accept")==0){
-            if(!moveFromWaitListToFriendList(userPair.username(), userPair.username1())){
-                return respondFriendStatue(userPair, "notAvailable");
+            // move other user from waitList to Friend list
+            String waitListRespond = moveFromWaitListToFriendList(userPair.username(), userPair.username1());
+            if(waitListRespond.equals("userProfileNotExist")){
+                return respondFriendStatue(userPair, "userProfileNotExist");
             }
-            if(!addToFriendList(userPair.username1(), userPair.username())){
-                return respondFriendStatue(userPair, "notAvailable");
+            if (waitListRespond.equals("otherUserNotAtWaitList")) {
+                return respondFriendStatue(userPair, "otherUserNotAtWaitList");
             }
+            // add this user to other user's friendList
+            String friendListRespond = addToFriendList(userPair.username1(), userPair.username());
+            if(friendListRespond.equals("otherUserProfileNotExist")){
+                return respondFriendStatue(userPair, "otherUserProfileNotExist");
+            }
+            if(friendListRespond.equals("alreadyFriend")){
+                return respondFriendStatue(userPair, "alreadyFriend");
+            }
+            // success
             return respondFriendStatue(userPair, "success");
         }
         else{
@@ -137,11 +150,11 @@ public class FriendService {
         }
     }
 
-    private boolean moveFromWaitListToFriendList(String user, String user1){
+    private String moveFromWaitListToFriendList(String user, String user1){
         //move user1 from user's friend wait list to friend list
         Friend friendOfUser = friendRepository.findByUsername(user);
         if(friendOfUser == null){
-            return false;
+            return "userProfileNotExist";
         }
         List<String> friendWaitList = friendOfUser.getFriendWaitList();
         List<String> friendList = friendOfUser.getFriendList();
@@ -151,27 +164,27 @@ public class FriendService {
             friendOfUser.setFriendList(friendList);
             friendOfUser.setFriendWaitList(friendWaitList);
             friendRepository.save(friendOfUser);
-            return true;
+            return "success";
         }
         else{
-            return false;
+            return "otherUserNotAtWaitList";
         }
     }
 
-    private boolean addToFriendList(String user, String user1){
+    private String addToFriendList(String user, String user1){
         Friend friendOfUser = friendRepository.findByUsername(user);
         if(friendOfUser == null){
-            return false;
+            return "otherUserProfileNotExist";
         }
         List<String> friendList = friendOfUser.getFriendList();
         if(!friendList.contains(user1)){
             friendList.add(user1);
             friendOfUser.setFriendList(friendList);
             friendRepository.save(friendOfUser);
-            return true;
+            return "success";
         }
         else{
-            return false;
+            return "alreadyFriend";
         }
     }
 
